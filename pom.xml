@@ -128,6 +128,20 @@
             <artifactId>liquibase-postgresql</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
+        <!-- JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -146,7 +160,7 @@
                 <configuration>
                     <propertyFile>${liquibase.propertyFile}</propertyFile>
                     <changeLogFile>db/changelog/db.changelog-root.yaml</changeLogFile>
-                    <outputChangeLogFile>db/changelog/db.changelog-root.yaml</outputChangeLogFile>
+                    <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-root.yaml</outputChangeLogFile>
                 </configuration>
             </plugin>
 
