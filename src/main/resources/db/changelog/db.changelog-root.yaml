@@ -1,0 +1,478 @@
+databaseChangeLog:
+- changeSet:
+    id: 1691899488977-1
+    author: onikai (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: users_pkey
+            name: id
+            startWith: 2
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: ''
+            name: email
+            type: VARCHAR
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: ''
+            name: encrypted_password
+            type: VARCHAR
+        - column:
+            name: reset_password_token
+            type: VARCHAR
+        - column:
+            name: reset_password_sent_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: remember_created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: sign_in_count
+            type: INTEGER
+        - column:
+            name: current_sign_in_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: last_sign_in_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: confirmation_token
+            type: VARCHAR
+        - column:
+            name: confirmed_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: confirmation_sent_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: username
+            type: VARCHAR
+        - column:
+            name: unconfirmed_email
+            type: VARCHAR
+        - column:
+            defaultValueNumeric: 900
+            name: elo_rating
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: games_won
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: games_played
+            type: INTEGER
+        - column:
+            constraints:
+              nullable: false
+            defaultValueBoolean: false
+            name: is_guest
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: jti
+            type: VARCHAR
+        tableName: users
+- changeSet:
+    id: 1691899488977-2
+    author: onikai (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: jwt_blacklists_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: jti
+            type: VARCHAR
+        - column:
+            name: exp
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: jwt_blacklists
+- changeSet:
+    id: 1691899488977-3
+    author: onikai (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: games_pkey
+            name: id
+            type: VARCHAR
+        - column:
+            name: home_id
+            type: BIGINT
+        - column:
+            name: away_id
+            type: BIGINT
+        - column:
+            name: creator_id
+            type: BIGINT
+        - column:
+            name: winner_id
+            type: BIGINT
+        - column:
+            name: home_team
+            type: VARCHAR
+        - column:
+            name: away_team
+            type: VARCHAR
+        - column:
+            name: data
+            type: JSONB
+        - column:
+            defaultValueNumeric: 0
+            name: turn
+            type: INTEGER
+        - column:
+            defaultValueBoolean: false
+            name: ranked
+            type: BOOLEAN
+        - column:
+            defaultValueBoolean: false
+            name: completed
+            type: BOOLEAN
+        - column:
+            defaultValueBoolean: false
+            name: started
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: level
+            type: VARCHAR
+        - column:
+            constraints:
+              nullable: false
+            defaultValueBoolean: false
+            name: is_guest_game
+            type: BOOLEAN
+        tableName: games
+- changeSet:
+    id: 1691899488977-4
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: email
+        indexName: index_users_on_email
+        tableName: users
+        unique: true
+- changeSet:
+    id: 1691899488977-5
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: reset_password_token
+        indexName: index_users_on_reset_password_token
+        tableName: users
+        unique: true
+- changeSet:
+    id: 1691899488977-6
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: confirmation_token
+        indexName: index_users_on_confirmation_token
+        tableName: users
+        unique: true
+- changeSet:
+    id: 1691899488977-7
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: username
+        indexName: index_users_on_username
+        tableName: users
+        unique: true
+- changeSet:
+    id: 1691899488977-8
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            defaultValueBoolean: false
+            name: is_guest
+        indexName: index_users_on_is_guest
+        tableName: users
+- changeSet:
+    id: 1691899488977-9
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: jti
+        indexName: index_users_on_jti
+        tableName: users
+        unique: true
+- changeSet:
+    id: 1691899488977-10
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: jti
+        indexName: index_jwt_blacklists_on_jti
+        tableName: jwt_blacklists
+- changeSet:
+    id: 1691899488977-11
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: home_id
+        indexName: index_games_on_home_id
+        tableName: games
+- changeSet:
+    id: 1691899488977-12
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: away_id
+        indexName: index_games_on_away_id
+        tableName: games
+- changeSet:
+    id: 1691899488977-13
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: creator_id
+        indexName: index_games_on_creator_id
+        tableName: games
+- changeSet:
+    id: 1691899488977-14
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: winner_id
+        indexName: index_games_on_winner_id
+        tableName: games
+- changeSet:
+    id: 1691899488977-15
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: home_team
+        indexName: index_games_on_home_team
+        tableName: games
+- changeSet:
+    id: 1691899488977-16
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: away_team
+        indexName: index_games_on_away_team
+        tableName: games
+- changeSet:
+    id: 1691899488977-17
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            defaultValueBoolean: false
+            name: completed
+        indexName: index_games_on_completed
+        tableName: games
+- changeSet:
+    id: 1691899488977-18
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            defaultValueBoolean: false
+            name: started
+        indexName: index_games_on_started
+        tableName: games
+- changeSet:
+    id: 1691899488977-19
+    author: onikai (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            defaultValueBoolean: false
+            name: is_guest_game
+        indexName: index_games_on_is_guest_game
+        tableName: games
+- changeSet:
+    id: 1691899488977-20
+    author: onikai (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: ar_internal_metadata_pkey
+            name: key
+            type: VARCHAR
+        - column:
+            name: value
+            type: VARCHAR
+        - column:
+            constraints:
+              nullable: false
+            name: created_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: updated_at
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: ar_internal_metadata
+- changeSet:
+    id: 1691899488977-21
+    author: onikai (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: schema_migrations_pkey
+            name: version
+            type: VARCHAR
+        tableName: schema_migrations
+- changeSet:
+    id: 1691899488977-22
+    author: onikai (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: home_id
+        baseTableName: games
+        constraintName: fk_rails_3d11ee4f94
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1691899488977-23
+    author: onikai (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: winner_id
+        baseTableName: games
+        constraintName: fk_rails_408b1e6c0c
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1691899488977-24
+    author: onikai (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: creator_id
+        baseTableName: games
+        constraintName: fk_rails_7167e9e18e
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1691899488977-25
+    author: onikai (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: away_id
+        baseTableName: games
+        constraintName: fk_rails_9703f316d0
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+
