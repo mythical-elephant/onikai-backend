@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController
 
 
 @SpringBootApplication
-@RestController
+//@RestController
 class BackendApplication {
-  @GetMapping("/")
-  fun hello(): String {
-    return "Hello World!"
-  }
+//  @GetMapping("/")
+//  fun hello(): String {
+//    return "Hello World!"
+//  }
 }
 
 fun main(args: Array<String>) {

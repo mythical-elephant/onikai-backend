@@ -1,2 +1,6 @@
-databaseChangeLog: []
+# Tell liquibase to look in `changes` directory
+databaseChangeLog:
+  - includeAll:
+      relativeToChangelogFile: true
+      path: changes
 

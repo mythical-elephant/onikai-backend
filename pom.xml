@@ -159,7 +159,7 @@
                 <version>${liquibase.version}</version>
                 <configuration>
                     <propertyFile>${liquibase.propertyFile}</propertyFile>
-                    <changeLogFile>db/changelog/db.changelog-root.yaml</changeLogFile>
+                    <changeLogFile>src/main/resources/db/changelog/db.changelog-root.yaml</changeLogFile>
                     <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-root.yaml</outputChangeLogFile>
                 </configuration>
             </plugin>
