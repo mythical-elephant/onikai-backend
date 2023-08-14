@@ -1,0 +1,58 @@
+package com.onikai.backend.config
+
+import com.onikai.backend.services.JWTService
+import jakarta.servlet.FilterChain
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.web.authentication.WebAuthenticationDetails
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
+import org.springframework.stereotype.Component
+import org.springframework.web.filter.OncePerRequestFilter
+
+@Component
+class JWTAuthenticationFilter(
+  val jwtService: JWTService,
+  val userDetailsService: UserDetailsService
+) : OncePerRequestFilter() {
+  /**
+   * Same contract as for `doFilter`, but guaranteed to be
+   * just invoked once per request within a single request thread.
+   * See [.shouldNotFilterAsyncDispatch] for details.
+   *
+   * Provides HttpServletRequest and HttpServletResponse arguments instead of the
+   * default ServletRequest and ServletResponse ones.
+   */
+  override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
+    val authHeader: String? = request.getHeader("authorization")
+    if(authHeader == null
+      || !authHeader.startsWith("Bearer ")
+      || SecurityContextHolder.getContext().authentication != null
+      ) {
+      filterChain.doFilter(request, response)
+      return
+    }
+
+    val jwtToken = authHeader.substring("Bearer ".length)
+    val userEmail = jwtService.extractSubject(jwtToken)
+
+    // If user email was extract, and user is not authenticated
+    if(userEmail != null) {
+      val userDetails = userDetailsService.loadUserByUsername(userEmail)
+      // If the user and the token are valid
+      if(jwtService.tokenIsValid(jwtToken, userDetails)) {
+        val authToken = UsernamePasswordAuthenticationToken(
+          userDetails,
+          null,
+          userDetails.authorities
+        )
+        authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
+        SecurityContextHolder.getContext().authentication = authToken
+      }
+    }
+
+    filterChain.doFilter(request, response)
+  }
+}
