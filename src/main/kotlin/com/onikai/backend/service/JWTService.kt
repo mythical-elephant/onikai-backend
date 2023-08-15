@@ -1,23 +1,22 @@
-package com.onikai.backend.services
+package com.onikai.backend.service
 
+import com.onikai.backend.config.ApplicationConstants
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import java.security.Key
-import java.time.Instant
 import java.util.*
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
-class JWTService {
-  companion object {
-    val SECRET_KEY =
-      "37dbe639e868664d6f4f8b2068a3c47e8e903e6c89d178e9433218e78410b34878cb1c0d51208fda091772142d11c103fd42093f4089899ceec8ef4d0f55944b"
-    val SECRET_KEY_BYTES: ByteArray by lazy { Decoders.BASE64.decode(SECRET_KEY) }
-  }
+class JWTService(
+  val applicationConstants: ApplicationConstants
+){
+  var logger: Logger = LoggerFactory.getLogger(JWTService::class.java)
 
   /**
    * Generate a token for the user and inject extra information via a map
@@ -79,6 +78,6 @@ class JWTService {
    * Signing key used
    */
   private fun getSigningKey(): Key {
-    return Keys.hmacShaKeyFor(SECRET_KEY_BYTES)
+    return Keys.hmacShaKeyFor(applicationConstants.jwtSecretKey)
   }
 }

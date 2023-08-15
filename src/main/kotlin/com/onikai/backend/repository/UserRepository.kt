@@ -1,4 +1,4 @@
-package com.onikai.backend.repositories
+package com.onikai.backend.repository
 
 import com.onikai.backend.model.enity.User
 import org.springframework.data.repository.CrudRepository

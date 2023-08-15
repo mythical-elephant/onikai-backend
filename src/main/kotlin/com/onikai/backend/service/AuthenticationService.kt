@@ -1,10 +1,10 @@
-package com.onikai.backend.services
+package com.onikai.backend.service
 
-import com.onikai.backend.controllers.auth.AuthenticationRequest
-import com.onikai.backend.controllers.auth.AuthenticationResponse
-import com.onikai.backend.controllers.auth.RegisterRequest
-import com.onikai.backend.repositories.UserRepository
-import com.onikai.backend.model.enums.Role
+import com.onikai.backend.controller.authentication.AuthenticationRequest
+import com.onikai.backend.controller.authentication.AuthenticationResponse
+import com.onikai.backend.controller.authentication.RegisterRequest
+import com.onikai.backend.repository.UserRepository
+import com.onikai.backend.model.enum.Role
 import com.onikai.backend.model.enity.User
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken

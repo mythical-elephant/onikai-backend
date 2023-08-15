@@ -1,4 +1,4 @@
-package com.onikai.backend.controllers
+package com.onikai.backend.controller
 
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication

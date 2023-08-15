@@ -33,4 +33,5 @@ build/
 .vscode/
 
 # App
-src/main/resources/application-secrets.properties
+/src/main/resources/application-secrets.properties
+/src/test/resources/application-test.properties

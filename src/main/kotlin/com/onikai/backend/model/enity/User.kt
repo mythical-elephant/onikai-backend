@@ -1,6 +1,6 @@
 package com.onikai.backend.model.enity
 
-import com.onikai.backend.model.enums.Role
+import com.onikai.backend.model.enum.Role
 import jakarta.persistence.*
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority

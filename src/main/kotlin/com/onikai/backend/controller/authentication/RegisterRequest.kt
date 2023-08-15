@@ -1,4 +1,4 @@
-package com.onikai.backend.controllers.auth
+package com.onikai.backend.controller.authentication
 
 data class RegisterRequest (
   val username:String,

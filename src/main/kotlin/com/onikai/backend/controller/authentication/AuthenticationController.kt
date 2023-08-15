@@ -1,6 +1,6 @@
-package com.onikai.backend.controllers.auth
+package com.onikai.backend.controller.authentication
 
-import com.onikai.backend.services.AuthenticationService
+import com.onikai.backend.service.AuthenticationService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
