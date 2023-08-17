@@ -17,6 +17,7 @@
         <java.version>19</java.version>
         <kotlin.version>1.9.0</kotlin.version>
         <liquibase.version>4.23.0</liquibase.version>
+        <jwt.version>0.11.5</jwt.version>
         <liquibase.propertyFile>src/main/resources/liquibase.properties</liquibase.propertyFile>
     </properties>
     <dependencies>
@@ -128,6 +129,24 @@
             <artifactId>liquibase-postgresql</artifactId>
             <version>${liquibase.version}</version>
         </dependency>
+        <!-- JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -145,8 +164,8 @@
                 <version>${liquibase.version}</version>
                 <configuration>
                     <propertyFile>${liquibase.propertyFile}</propertyFile>
-                    <changeLogFile>db/changelog/db.changelog-root.yaml</changeLogFile>
-                    <outputChangeLogFile>db/changelog/db.changelog-root.yaml</outputChangeLogFile>
+                    <changeLogFile>src/main/resources/db/changelog/db.changelog-root.yaml</changeLogFile>
+                    <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-root.yaml</outputChangeLogFile>
                 </configuration>
             </plugin>
 
@@ -160,7 +179,11 @@
                     <compilerPlugins>
                         <plugin>spring</plugin>
                         <plugin>jpa</plugin>
+                        <plugin>all-open</plugin>
                     </compilerPlugins>
+                    <pluginOptions>
+                        <option>all-open:annotation=jakarta.persistence.Entity</option>
+                    </pluginOptions>
                 </configuration>
                 <dependencies>
                     <dependency>

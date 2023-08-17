@@ -12,20 +12,20 @@ import org.testcontainers.utility.DockerImageName
 @TestConfiguration(proxyBeanMethods = false)
 class TestBackendApplication {
 
-    @Bean
-    @ServiceConnection
-    fun postgresContainer(): PostgreSQLContainer<*> {
-        return PostgreSQLContainer(DockerImageName.parse("postgres:latest"))
-    }
+  @Bean
+  @ServiceConnection
+  fun postgresContainer(): PostgreSQLContainer<*> {
+    return PostgreSQLContainer(DockerImageName.parse("postgres:latest"))
+  }
 
-    @Bean
-    @ServiceConnection(name = "redis")
-    fun redisContainer(): GenericContainer<*> {
-        return GenericContainer(DockerImageName.parse("redis:latest")).withExposedPorts(6379)
-    }
+  @Bean
+  @ServiceConnection(name = "redis")
+  fun redisContainer(): GenericContainer<*> {
+    return GenericContainer(DockerImageName.parse("redis:latest")).withExposedPorts(6379)
+  }
 
 }
 
 fun main(args: Array<String>) {
-    fromApplication<BackendApplication>().with(TestBackendApplication::class).run(*args)
+  fromApplication<BackendApplication>().with(TestBackendApplication::class).run(*args)
 }
