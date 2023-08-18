@@ -31,11 +31,11 @@ class SecurityConfig(
       .authorizeHttpRequests { auth ->
         auth
           // Allow everything here to go through
-          .requestMatchers("/api/v1/auth/**")
+//          .requestMatchers("/api/v1/auth/**")
+//          .authenticated()
+          .anyRequest() // anything else authenticated
           .permitAll()
           // Everything else authenticate
-          .anyRequest() // anything else authenticated
-          .authenticated()
       }
       // Stateless meaning all request will use JWT and not set a cookie
       .sessionManagement { session ->

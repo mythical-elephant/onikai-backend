@@ -1,0 +1,83 @@
+@import "unity-container";
+
+body.home {
+  background-color: #1b1b1b;
+  background-image: url("/images/green-tile.png");
+  color: #EFEFEF;
+  display: flex;
+  flex-direction: column;
+
+
+  --canvas-width: 1280px;
+  --canvas-height: 720px;
+  // < 1280 - take up available space
+  @media only screen and (max-width: 1279px) {
+    --canvas-width: calc(100vw - 50px);
+    --canvas-height: calc(9 / 16 * var(--canvas-width)) !important;
+  }
+
+  // Mobile Landscape, make sure height can fit within the area
+  @media only screen and (hover: none) and (pointer: coarse) and (max-width: 900px) and (orientation: landscape) {
+    --canvas-height: 80vh !important;
+    --canvas-width: calc(16 / 9 * var(--canvas-height)) !important;
+  }
+}
+
+.game-info {
+  display: flex;
+  width: calc(var(---content-width) + 20px);
+  background: #1b1b1b8c;
+  flex-grow: 1;
+  margin-top: -20px;
+  padding-top: 20px;
+  color: #f8eedf;
+
+  .left {
+    flex-grow: 1;
+    padding: 15px;
+
+    .description {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+
+      .title {
+        font-weight: 700;
+        font-size: 2em;
+      }
+
+      .text-description {
+        margin: 15px 0 0 10px;
+      }
+
+      .long-description {
+        max-width: 400px;
+        display: inline-block;
+        margin-top: 30px;
+      }
+    }
+  }
+
+  > .right {
+    flex-basis: 200px;
+  }
+
+  .how-to-play {
+    .section-header {
+      font-size: 1.25em;
+    }
+    ul {
+      padding-inline-start: 15px;
+    }
+    li {
+      margin: 10px 0px;
+      figure {
+        display: inline-block;
+      }
+    }
+
+    figure ~ span {
+      margin-left: 5px;
+    }
+  }
+}

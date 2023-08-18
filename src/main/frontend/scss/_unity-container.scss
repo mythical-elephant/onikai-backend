@@ -1,0 +1,80 @@
+@import "native_input";
+
+// legacy
+#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
+#unity-logo { width: 154px; height: 130px; background: url('/build/onikai/TemplateData/unity-logo-dark.png') no-repeat center }
+#unity-progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; background: url('/build/onikai/TemplateData/progress-bar-empty-dark.png') no-repeat center }
+#unity-progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('/build/onikai/TemplateData/progress-bar-full-dark.png') no-repeat center }
+#unity-footer { position: relative }
+.unity-mobile #unity-footer { display: none }
+#unity-webgl-logo { float:left; width: 204px; height: 38px; background: url('/build/onikai/TemplateData/webgl-logo.png') no-repeat center }
+#unity-build-title { float: right; margin-right: 10px; line-height: 38px; font-family: arial; font-size: 18px }
+#unity-fullscreen-button { float: right; width: 38px; height: 22px; background: url('/build/onikai/TemplateData/fullscreen-button.png') no-repeat center }
+
+#unity-container.unity-desktop {
+
+}
+
+.game-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  //height: calc(100% - 32px - 45px);
+  padding-top: 30px;
+  flex-direction: column;
+
+
+  #unity-container {
+    .canvas-wrapper {
+      padding: 10px;
+      border-image-source: url("/images/box-border.png");
+      border-image-slice: 56 56 56 56 fill;
+      border-image-width: 56px 56px 56px 56px;
+      border-image-outset: 0px 0px 0px 0px;
+      border-image-repeat: stretch stretch;
+      box-shadow: 0px 0px 20px 4px rgba(0,0,0, 0.3);
+    }
+    left: auto;
+    top: initial;
+    transform: none;
+    position: relative;
+
+    &.unity-mobile {
+      width: auto;
+      height: auto;
+      #unity-canvas {
+        width: inherit;
+        height: inherit;
+      }
+      #unity-loading-bar {
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+    }
+  }
+  #unity-canvas {
+    //position: relative;
+    //left: 48px;
+    //top: 48px;
+  }
+  #unity-footer {
+    transform: translate(0px, 10px);
+  }
+  #unity-build-title,
+  #unity-webgl-logo {
+    display: none;
+  }
+
+  canvas {
+    width: var(--canvas-width) !important;
+    height: var(--canvas-height) !important;
+  }
+
+  // Mobile Landscape, make sure height can fit within the area
+  @media only screen and (hover: none) and (pointer: coarse) and (max-width: 900px) and (orientation: landscape) {
+    height: 100%;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+  }
+}

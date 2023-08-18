@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build-sass": "sass src/main/frontend/scss:src/main/resources/static/css",
+    "watch-sass": "sass --watch --poll src/main/frontend/scss:src/main/resources/static/css"
+  },
+  "dependencies": {
+    "sass": "^1.66.0"
+  }
+}
