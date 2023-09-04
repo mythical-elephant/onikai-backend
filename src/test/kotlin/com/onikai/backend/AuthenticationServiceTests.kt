@@ -1,6 +1,6 @@
 package com.onikai.backend
 
-import com.onikai.backend.controller.authentication.RegisterRequest
+import com.onikai.backend.controller.authentication.RegistrationRequestDTO
 import com.onikai.backend.repository.UserRepository
 import com.onikai.backend.service.AuthenticationService
 import com.onikai.backend.support.DatabaseCleaner
@@ -8,7 +8,6 @@ import com.onikai.backend.support.factory.UserFactory
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsString
 import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -40,7 +39,7 @@ class AuthenticationServiceTests : DatabaseCleaner {
     val existingUser = userFactory.create(username = "ALongUserNameALongUserNameALongUsername", save = false)
 
     val exception = assertThrows<Exception> {
-      authenticationService.register(RegisterRequest(
+      authenticationService.register(RegistrationRequestDTO(
         username = existingUser.username!!,
         password = existingUser.password!!,
         email = existingUser.email!!
@@ -56,7 +55,7 @@ class AuthenticationServiceTests : DatabaseCleaner {
     val newUser = userFactory.create(username = existingUser.username!!, save = false)
 
     val exception = assertThrows<Exception> {
-      authenticationService.register(RegisterRequest(
+      authenticationService.register(RegistrationRequestDTO(
         username = newUser.username!!,
         password = newUser.password!!,
         email = newUser.email!!
@@ -71,7 +70,7 @@ class AuthenticationServiceTests : DatabaseCleaner {
     val existingUser = userFactory.create(username = "signin", save = false)
 
     val exception = assertThrows<Exception> {
-      authenticationService.register(RegisterRequest(
+      authenticationService.register(RegistrationRequestDTO(
         username = existingUser.username!!,
         password = existingUser.password!!,
         email = existingUser.email!!
@@ -85,7 +84,7 @@ class AuthenticationServiceTests : DatabaseCleaner {
   fun `When everything is correct, then a user is created`() {
     val user = userFactory.create(save = false)
 
-    authenticationService.register(RegisterRequest(
+    authenticationService.register(RegistrationRequestDTO(
       username = user.username!!,
       password = user.password!!,
       email = user.email!!
