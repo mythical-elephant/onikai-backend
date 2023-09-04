@@ -14,15 +14,15 @@ class AuthenticationController(
 ) {
   @PostMapping("/register")
   fun register(
-    @RequestBody request: RegisterRequest
-  ): ResponseEntity<AuthenticationResponse> {
+    @RequestBody request: RegistrationRequestDTO
+  ): ResponseEntity<AuthenticationResponseDTO> {
     return ResponseEntity.ok(authenticationService.register(request))
   }
 
   @PostMapping("/authenticate")
   fun authenticate(
-    @RequestBody request: AuthenticationRequest
-  ): ResponseEntity<AuthenticationResponse> {
+    @RequestBody request: AuthenticationRequestDTO
+  ): ResponseEntity<AuthenticationResponseDTO> {
     return ResponseEntity.ok(authenticationService.authenticate(request))
   }
 }

@@ -35,11 +35,11 @@ class JWTAuthenticationFilter(
     }
 
     val jwtToken = authHeader.substring("Bearer ".length)
-    val userEmail = jwtService.extractSubject(jwtToken)
+    val usernameOrEmail = jwtService.extractSubject(jwtToken)
 
     // If user email was extract, and user is not authenticated
-    if(userEmail != null) {
-      val userDetails = userDetailsService.loadUserByUsername(userEmail)
+    if(usernameOrEmail != null) {
+      val userDetails = userDetailsService.loadUserByUsername(usernameOrEmail)
       // If the user and the token are valid
       if(jwtService.tokenIsValid(jwtToken, userDetails)) {
         val authToken = UsernamePasswordAuthenticationToken(

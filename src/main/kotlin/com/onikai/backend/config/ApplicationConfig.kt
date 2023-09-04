@@ -19,15 +19,15 @@ class ApplicationConfig(
 ) {
   @Bean
   fun userDetailsService(): UserDetailsService {
-    return UserDetailsService { email: String? ->
-      if (email == null) {
+    return UserDetailsService { usernameOrEmail: String? ->
+      if (usernameOrEmail == null) {
         throw UsernameNotFoundException("No such user")
       }
-
-      UserPrincipal(userRepository
-        .findUserByEmail(email)
-        .orElseThrow { UsernameNotFoundException("No such user") }
-      )
+      val user = when (usernameOrEmail.contains('@')) {
+        true -> userRepository.findUserByEmail(usernameOrEmail)
+        false -> userRepository.findUserByUsername(usernameOrEmail)
+      }
+      UserPrincipal(user.orElseThrow { UsernameNotFoundException("No such user") })
     }
   }
 

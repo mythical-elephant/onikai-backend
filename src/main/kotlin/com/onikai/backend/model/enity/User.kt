@@ -11,7 +11,6 @@ import java.time.Instant
 class UserPrincipal(
   val user:User
 ) : UserDetails {
-//  lateinit var user:User
 
   override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(SimpleGrantedAuthority(user.role.name))
   override fun getPassword(): String = user.password!!

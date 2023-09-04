@@ -1,6 +1,6 @@
 package com.onikai.backend.support.factory
 
-import com.onikai.backend.controller.authentication.RegisterRequest
+import com.onikai.backend.controller.authentication.RegistrationRequestDTO
 import io.github.serpro69.kfaker.Faker
 import org.springframework.stereotype.Component
 
@@ -11,7 +11,7 @@ class RegisterRequestFactory {
     username:String = faker.funnyName.name(),
     email:String = faker.internet.email(),
     password:String = faker.random.randomString(8)
-  ):RegisterRequest {
-    return RegisterRequest(username, password, email)
+  ):RegistrationRequestDTO {
+    return RegistrationRequestDTO(username, password, email)
   }
 }

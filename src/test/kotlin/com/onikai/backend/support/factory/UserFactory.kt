@@ -1,6 +1,5 @@
 package com.onikai.backend.support.factory
 
-import com.onikai.backend.controller.authentication.RegisterRequest
 import com.onikai.backend.model.enity.User
 import com.onikai.backend.model.enum.Role
 import com.onikai.backend.repository.UserRepository
@@ -8,7 +7,6 @@ import io.github.serpro69.kfaker.Faker
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.time.Instant
-import kotlin.math.min
 
 @Component
 class UserFactory(
