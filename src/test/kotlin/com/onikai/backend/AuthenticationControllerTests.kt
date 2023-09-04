@@ -2,7 +2,10 @@ package com.onikai.backend
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.json.JsonMapper
+import com.onikai.backend.controller.authentication.AuthenticationRequestDTO
 import com.onikai.backend.support.factory.RegisterRequestFactory
+import com.onikai.backend.support.factory.UserFactory
+import io.github.serpro69.kfaker.Faker
 import org.junit.experimental.results.ResultMatchers
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -26,16 +29,19 @@ import org.springframework.transaction.annotation.Transactional
 @AutoConfigureMockMvc
 @Transactional
 class AuthenticationControllerTests {
-  @Autowired
-  private lateinit var mockMvc:MockMvc
-  @Autowired
-  private lateinit var registerRequestFactory: RegisterRequestFactory
-  @Autowired
-  private lateinit var jsonMapper: ObjectMapper
+  @Autowired private lateinit var mockMvc:MockMvc
+  @Autowired private lateinit var registerRequestFactory: RegisterRequestFactory
+  @Autowired private lateinit var userFactory: UserFactory
+  @Autowired private lateinit var jsonMapper: ObjectMapper
+
+  private val faker = Faker()
+
   @Test
   fun `Can register a user`() {
     // Given valid information
-    val info = registerRequestFactory.create()
+    val password = faker.random.randomString(8)
+    val user = userFactory.create(password = password, save = false)
+    val info = registerRequestFactory.create(user.username!!, user.email!!, password )
 
     // When a user attempts to register
     // Their account is created
@@ -48,22 +54,53 @@ class AuthenticationControllerTests {
   }
 
   @Test
-  fun `When a username cannot be registered an error is returned`() {
+  fun `Can authenticate a user via username`() {
     // Given valid information
-    val info = registerRequestFactory.create(password = "0")
+    val password = faker.random.randomString(8)
+    val user = userFactory.create(password = password, save = true)
+    val info = AuthenticationRequestDTO(user.username!!, password)
 
     // When a user attempts to register
     // Their account is created
     mockMvc.perform(
-      post("/api/v1/auth/register")
-        .accept(MediaType.APPLICATION_JSON_VALUE)
+      post("/api/v1/auth/authenticate")
         .contentType(MediaType.APPLICATION_JSON)
         .content(jsonMapper.writeValueAsString(info))
     )
-      .andExpect(status().isBadRequest)
-      .andReturn()
-      .let {
-        assertEquals(it.response.errorMessage, "Password must be at least 6 characters")
-      }
+      .andExpect(status().isOk)
+  }
+
+
+  @Test
+  fun `Can authenticate a user via email address`() {
+    // Given valid information
+    val password = faker.random.randomString(8)
+    val user = userFactory.create(password = password, save = true)
+    val info = AuthenticationRequestDTO(user.email!!, password)
+
+    // When a user attempts to register
+    // Their account is created
+    mockMvc.perform(
+      post("/api/v1/auth/authenticate")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(jsonMapper.writeValueAsString(info))
+    )
+      .andExpect(status().isOk)
+  }
+
+  @Test
+  fun `Fails when an invalid password is provided`() {
+    // Given valid information
+    val password = faker.random.randomString(8)
+    val user = userFactory.create(password = password, save = true)
+    val info = AuthenticationRequestDTO(user.email!!, "wrongpassword")
+
+    // When a user attempts to register
+    mockMvc.perform(
+      post("/api/v1/auth/authenticate")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(jsonMapper.writeValueAsString(info))
+    )
+      .andExpect(status().isForbidden)
   }
 }
