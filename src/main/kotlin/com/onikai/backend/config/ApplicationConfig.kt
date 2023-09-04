@@ -19,13 +19,13 @@ class ApplicationConfig(
 ) {
   @Bean
   fun userDetailsService(): UserDetailsService {
-    return UserDetailsService { username: String? ->
-      if (username == null) {
+    return UserDetailsService { email: String? ->
+      if (email == null) {
         throw UsernameNotFoundException("No such user")
       }
 
       UserPrincipal(userRepository
-        .findUserByUsername(username)
+        .findUserByEmail(email)
         .orElseThrow { UsernameNotFoundException("No such user") }
       )
     }
