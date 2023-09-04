@@ -10,7 +10,7 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v3
-      - name: Restart Spring Boot App
+      - name: Deploying springboot app
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.HOST}}
@@ -26,7 +26,7 @@ jobs:
             spring.datasource.username=${{secrets.SPRING_DATASOURCE_USERNAME}}\n \
             spring.datasource.password=${{secrets.SPRING_DATASOURCE_PASSWORD}}\n \
             onikai.jwt.secret=${{secrets.ONIKAI_JWT_SECRET}}" > src/main/resources/application-secrets.properties
-            bash mvnw compile
+            bash mvnw package
             
             # pkill -f your-app-name.jar
             # nohup java -jar /path/on/remote/server/your-app-name.jar > app.log 2>&1 &
