@@ -19,6 +19,7 @@ jobs:
           script: |
             cd ~/deployments
             rm -rf main.bak
+            cp -R main main.bak
             cd main
             git pull
             echo -e "spring.datasource.url=${{secrets.SPRING_DATASOURCE_URL}}\n \
