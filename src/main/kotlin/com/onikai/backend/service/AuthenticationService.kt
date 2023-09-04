@@ -6,6 +6,7 @@ import com.onikai.backend.controller.authentication.RegisterRequest
 import com.onikai.backend.repository.UserRepository
 import com.onikai.backend.model.enum.Role
 import com.onikai.backend.model.enity.User
+import com.onikai.backend.model.enity.UserPrincipal
 import jakarta.validation.Valid
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -34,16 +35,16 @@ class AuthenticationService(
     }
 
     val user = User().also {
-      it._username = username
+      it.username = username
       it.email = email
       it.unconfirmedEmail = email
-      it._password = passwordEncoder.encode(password)
+      it.password = passwordEncoder.encode(password)
       it.createdAt = Instant.now()
       it.updatedAt = Instant.now()
       it.role = Role.USER
     }
     userRepository.save(user)
-    return AuthenticationResponse(jwtService.generateToken(user))
+    return AuthenticationResponse(jwtService.generateToken(UserPrincipal(user)))
   }
 
   fun authenticate(request: AuthenticationRequest): AuthenticationResponse? {
@@ -56,6 +57,6 @@ class AuthenticationService(
       .findUserByEmail(request.email)
       .orElseThrow { UsernameNotFoundException("No such user") }
 
-    return AuthenticationResponse(jwtService.generateToken(user))
+    return AuthenticationResponse(jwtService.generateToken(UserPrincipal(user)))
   }
 }

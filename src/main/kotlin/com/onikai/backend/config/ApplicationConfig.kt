@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jsonMapper
+import com.onikai.backend.model.enity.UserPrincipal
 import com.onikai.backend.repository.UserRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
@@ -17,13 +19,15 @@ class ApplicationConfig(
 ) {
   @Bean
   fun userDetailsService(): UserDetailsService {
-    return UserDetailsService { userEmail: String? ->
-      if (userEmail == null) {
+    return UserDetailsService { username: String? ->
+      if (username == null) {
         throw UsernameNotFoundException("No such user")
       }
-      userRepository
-        .findUserByEmail(userEmail)
+
+      UserPrincipal(userRepository
+        .findUserByUsername(username)
         .orElseThrow { UsernameNotFoundException("No such user") }
+      )
     }
   }
 

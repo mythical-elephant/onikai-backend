@@ -25,6 +25,6 @@ class UniqueUsernameValidator : ConstraintValidator<UniqueUsername, String> {
   lateinit var userRepository:UserRepository
   override fun isValid(username: String?, context: ConstraintValidatorContext): Boolean {
     if (username == null) return false
-    return !userRepository.existsBy_usernameAllIgnoreCase(username)
+    return !userRepository.existsByUsername(username)
   }
 }

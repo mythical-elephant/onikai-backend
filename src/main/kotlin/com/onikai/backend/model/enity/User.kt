@@ -8,9 +8,28 @@ import org.springframework.security.core.userdetails.UserDetails
 import java.time.Instant
 
 
+class UserPrincipal(
+  val user:User
+) : UserDetails {
+//  lateinit var user:User
+
+  override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(SimpleGrantedAuthority(user.role.name))
+  override fun getPassword(): String = user.password!!
+
+  override fun getUsername(): String = user.username!!
+
+  override fun isAccountNonExpired(): Boolean = true
+
+  override fun isAccountNonLocked(): Boolean = true
+
+  override fun isCredentialsNonExpired(): Boolean = true
+
+  override fun isEnabled(): Boolean = true
+}
+
 @Entity
 @Table(name = "users")
-open class User : UserDetails {
+open class User  {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
   @SequenceGenerator(name = "users_id_seq", allocationSize = 1)
@@ -20,10 +39,10 @@ open class User : UserDetails {
   var email:String? = null
 
   @Column(name = "username")
-  var _username:String? = null
+  var username:String? = null
 
   @Column(name = "password")
-  var _password:String? = null
+  var password:String? = null
 
   @Enumerated(EnumType.STRING)
   var role: Role = Role.USER;
@@ -39,19 +58,5 @@ open class User : UserDetails {
 
   @Column var createdAt:Instant? = null
   @Column var updatedAt:Instant? = null
-
-  override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(SimpleGrantedAuthority(role.name))
-
-  override fun getPassword(): String = _password!!
-
-  override fun getUsername(): String = email!!
-
-  override fun isAccountNonExpired(): Boolean = true
-
-  override fun isAccountNonLocked(): Boolean = true
-
-  override fun isCredentialsNonExpired(): Boolean = true
-
-  override fun isEnabled(): Boolean = true
 }
 

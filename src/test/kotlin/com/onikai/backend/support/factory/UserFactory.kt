@@ -18,15 +18,15 @@ class UserFactory(
   private val faker = Faker()
 
   fun create(
-    username:String = faker.funnyName.name().replace(" ", "").toLowerCase(),
+    username:String = faker.funnyName.name().replace(" ", "").lowercase(),
     email:String = faker.internet.email(),
     password:String = faker.random.randomString(8),
     role:Role = Role.USER,
     save:Boolean
   ): User {
     return User().also {
-      it._password = passwordEncoder.encode(password)
-      it._username = username.substring(0, min(username.length - 1, 15))
+      it.password = passwordEncoder.encode(password)
+      it.username = username.substring(0, min(username.length - 1, 15))
       it.createdAt = Instant.now()
       it.updatedAt = Instant.now()
       it.email = email
