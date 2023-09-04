@@ -6,4 +6,5 @@ import java.util.Optional
 
 interface UserRepository : CrudRepository<User, Long> {
   fun findUserByEmail(email:String):Optional<User>
+  fun existsBy_usernameAllIgnoreCase(username: String): Boolean
 }

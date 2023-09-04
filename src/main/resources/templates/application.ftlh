@@ -9,7 +9,6 @@
   <#include "shared/_faveicon.ftlh">
   <link rel="stylesheet" href="/css/${content}.css" />
   <link rel="stylesheet" href="/css/application.css" />
-
   <#include "shared/_analytics.ftlh">
 </head>
 <body class="${content}">

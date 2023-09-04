@@ -1,5 +1,10 @@
 package com.onikai.backend.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.jsonMapper
 import com.onikai.backend.repository.UserRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -20,5 +25,14 @@ class ApplicationConfig(
         .findUserByEmail(userEmail)
         .orElseThrow { UsernameNotFoundException("No such user") }
     }
+  }
+
+  @Bean
+  fun jsonMapper(): ObjectMapper? {
+    return JsonMapper
+      .builder()
+      .build()
+      .registerModule(JavaTimeModule())
+      .registerModule(KotlinModule())
   }
 }
