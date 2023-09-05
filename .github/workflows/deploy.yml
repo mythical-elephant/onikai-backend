@@ -28,6 +28,10 @@ jobs:
             spring.datasource.username=${{secrets.SPRING_DATASOURCE_USERNAME}}\n\
             spring.datasource.password=${{secrets.SPRING_DATASOURCE_PASSWORD}}\n\
             onikai.jwt.secret=${{secrets.ONIKAI_JWT_SECRET}}" > src/main/resources/application-secrets.properties
+            echo -e "spring.datasource.url=${{secrets.TEST_DATASOURCE_URL}}\n\
+            spring.datasource.username=${{secrets.SPRING_DATASOURCE_USERNAME}}\n\
+            spring.datasource.password=${{secrets.SPRING_DATASOURCE_PASSWORD}}\n\
+            onikai.jwt.secret=${{secrets.TEST_ONIKAI_JWT_SECRET}}" > src/main/resources/application-secrets.properties
             bash mvnw package
             systemctl daemon-reload
             systemctl restart onikai-spring-prod.service
