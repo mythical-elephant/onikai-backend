@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+  <changeSet id="create-games" author="onikai">
+        <createTable tableName="games">
+          <column name="id" type="VARCHAR(255)">
+            <constraints primaryKey="true"/>
+          </column>
+          <column name="home_id" type="SERIAL">
+            <constraints referencedColumnNames="id" referencedTableName="users" foreignKeyName="fk_home_id" />
+          </column>
+          <column name="away_id" type="SERIAL">
+            <constraints referencedColumnNames="id" referencedTableName="users" foreignKeyName="fk_away_id" />
+          </column>
+          <column name="creator_id" type="SERIAL">
+            <constraints referencedColumnNames="id" referencedTableName="users" foreignKeyName="fk_creator_id" />
+          </column>
+          <column name="winner_id" type="SERIAL">
+            <constraints referencedColumnNames="id" referencedTableName="users" foreignKeyName="fk_winner_id" />
+          </column>
+          <column name="home_team" type="VARCHAR(255)"/>
+          <column name="away_team" type="VARCHAR(255)"/>
+          <column name="data" type="JSONB"/>
+          <column name="turn" type="INTEGER" defaultValueNumeric="0"/>
+          <column name="ranked" type="BOOLEAN" defaultValueBoolean="false"/>
+          <column name="completed" type="BOOLEAN" defaultValueBoolean="false"/>
+          <column name="started" type="BOOLEAN" defaultValueBoolean="false"/>
+          <column name="created_at" type="TIMESTAMP">
+            <constraints nullable="false"/>
+          </column>
+          <column name="updated_at" type="TIMESTAMP">
+            <constraints nullable="false"/>
+          </column>
+          <column name="level" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+          </column>
+          <column name="is_guest_game" type="BOOLEAN" defaultValueBoolean="false">
+            <constraints nullable="false"/>
+          </column>
+        </createTable>
+    <!-- Indices -->
+    <createIndex tableName="games" indexName="index_games_on_home_id"><column name="home_id"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_away_id"><column name="away_id"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_creator_id"><column name="creator_id"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_winner_id"><column name="winner_id"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_completed"><column name="completed"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_started"><column name="started"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_away_team"><column name="away_team"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_home_team"><column name="home_team"/></createIndex>
+    <createIndex tableName="games" indexName="index_games_on_is_guest_game"><column name="is_guest_game"/></createIndex>
+  </changeSet>
+
+</databaseChangeLog>

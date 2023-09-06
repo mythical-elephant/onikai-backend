@@ -184,8 +184,8 @@
                 <version>${liquibase.version}</version>
                 <configuration>
                     <propertyFile>${liquibase.propertyFile}</propertyFile>
-                    <changeLogFile>src/main/resources/db/changelog/db.changelog-root.yaml</changeLogFile>
-                    <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-root.yaml</outputChangeLogFile>
+                    <changeLogFile>db/changelog/db.changelog-root.yaml</changeLogFile>
+                    <outputChangeLogFile>db/changelog/db.changelog-root.yaml</outputChangeLogFile>
                 </configuration>
             </plugin>
 
