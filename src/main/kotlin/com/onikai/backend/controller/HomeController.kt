@@ -1,4 +1,4 @@
-package com.onikai.backend.controller.home
+package com.onikai.backend.controller
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap

@@ -9,13 +9,13 @@ import java.time.Instant
 
 
 class UserPrincipal(
-  val user:User
+  private val entity:User
 ) : UserDetails {
 
-  override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(SimpleGrantedAuthority(user.role.name))
-  override fun getPassword(): String = user.password!!
+  override fun getAuthorities(): MutableCollection<out GrantedAuthority> = mutableListOf(SimpleGrantedAuthority(entity.role.name))
+  override fun getPassword(): String = entity.password!!
 
-  override fun getUsername(): String = user.username!!
+  override fun getUsername(): String = entity.username!!
 
   override fun isAccountNonExpired(): Boolean = true
 
@@ -24,6 +24,9 @@ class UserPrincipal(
   override fun isCredentialsNonExpired(): Boolean = true
 
   override fun isEnabled(): Boolean = true
+
+  val id:Long?
+    get() = entity.id!!
 }
 
 @Entity
