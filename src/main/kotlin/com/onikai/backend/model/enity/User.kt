@@ -2,6 +2,7 @@ package com.onikai.backend.model.enity
 
 import com.onikai.backend.model.enum.Role
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotNull
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -60,5 +61,20 @@ open class User  {
 
   @Column var createdAt:Instant? = null
   @Column var updatedAt:Instant? = null
+
+  @Column(name = "elo_rating")
+  var eloRating: Int? = null
+
+  @NotNull
+  @Column(name = "games_won", nullable = false)
+  var gamesWon: Int? = null
+
+  @NotNull
+  @Column(name = "games_played", nullable = false)
+  var gamesPlayed: Int? = null
+
+  @NotNull
+  @Column(name = "is_guest", nullable = false)
+  var isGuest: Boolean? = false
 }
 

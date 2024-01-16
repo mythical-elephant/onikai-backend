@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+  <changeSet id="add-fields-users" author="onikai">
+        <addColumn tableName="users">
+          <column name="is_guest" type="bool" defaultValue="false"></column>
+          <column name="rating" type="integer" defaultValue="0"></column>
+          <column name="games_won" type="integer" defaultValue="0"></column>
+          <column name="games_lost" type="integer" defaultValue="0"></column>
+          <column name="last_sign_in_at" type="datetime"></column>
+        </addColumn>
+  </changeSet>
+
+</databaseChangeLog>

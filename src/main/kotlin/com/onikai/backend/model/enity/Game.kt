@@ -3,6 +3,7 @@ package com.onikai.backend.model.enity
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import java.time.Instant
 
@@ -14,22 +15,22 @@ class Game {
   var id: String? = null
 
   @Column(name = "home_id")
-  var home: Long = null
+  var home: Long? = null
 
   @Column(name = "away_id")
-  var away: Long = null
+  var away: Long? = null
 
   @Column(name = "creator_id")
-  var creator: Long = null
+  var creator: Long? = null
 
   @Column(name = "winner_id")
   var winner: Long? = null
 
   @Column(name = "home_team", length = Integer.MAX_VALUE)
-  var homeTeam: String = null
+  var homeTeam: String? = null
 
   @Column(name = "away_team", length = Integer.MAX_VALUE)
-  var awayTeam: String = null
+  var awayTeam: String? = null
 
   @JdbcTypeCode(SqlTypes.JSON)
   @Column(name = "data")
@@ -63,5 +64,31 @@ class Game {
   @Column(name = "is_guest_game", nullable = false)
   var isGuestGame: Boolean? = false
 
+//  /**
+//   * Sets the "other" team for this game
+//   */
+//  fun setOtherTeam(playerId:Long, team:Team) {
+//
+//  }
+}
 
+/**
+ * Projection to retrieve game without the data
+ */
+interface GameSummary {
+  fun getId(): String?
+  fun getHome(): Long?
+  fun getAway(): Long?
+  fun getCreator(): Long?
+  fun getWinner(): Long?
+  fun getHomeTeam(): String?
+  fun getAwayTeam(): String?
+  fun getTurn(): Int?
+  fun getRanked(): Boolean?
+  fun getCompleted(): Boolean?
+  fun getStarted(): Boolean?
+  fun getCreatedAt(): Instant?
+  fun getUpdatedAt(): Instant?
+  fun getLevel(): String?
+  fun getIsGuestGame(): Boolean?
 }
