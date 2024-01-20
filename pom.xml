@@ -20,6 +20,29 @@
         <jwt.version>0.11.5</jwt.version>
         <liquibase.propertyFile>src/main/resources/liquibase.properties</liquibase.propertyFile>
     </properties>
+    <!-- Can be placed anywhere in top level -->
+    <profiles>
+
+        <profile>
+            <!-- "default" profile does not need to be specified -->
+            <id>default-profile</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <liquibase.propertyFile>src/main/resources/liquibase.properties</liquibase.propertyFile>
+            </properties>
+        </profile>
+
+        <!-- test profile -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <liquibase.propertyFile>src/test/resources/liquibase.properties</liquibase.propertyFile>
+            </properties>
+        </profile>
+
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -10,5 +10,6 @@ interface DatabaseCleaner {
   @BeforeEach
   fun resetDatabase() {
     jdbcTemplate.execute("TRUNCATE TABLE users")
+    jdbcTemplate.execute("TRUNCATE TABLE games")
   }
 }

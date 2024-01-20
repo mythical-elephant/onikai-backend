@@ -27,6 +27,9 @@ class UserFactory(
       it.username = username
       it.createdAt = Instant.now()
       it.updatedAt = Instant.now()
+      it.gamesLost = 0
+      it.gamesWon = 0
+      it.rating = 0
       it.email = email
       it.unconfirmedEmail = email
       it.role = role

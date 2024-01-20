@@ -11,7 +11,7 @@
   <changeSet id="add-fields-users" author="onikai">
         <addColumn tableName="users">
           <column name="is_guest" type="bool" defaultValue="false"></column>
-          <column name="rating" type="integer" defaultValue="0"></column>
+          <column name="rating" type="integer" defaultValue="1000"></column>
           <column name="games_won" type="integer" defaultValue="0"></column>
           <column name="games_lost" type="integer" defaultValue="0"></column>
           <column name="last_sign_in_at" type="datetime"></column>

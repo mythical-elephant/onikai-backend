@@ -1,6 +1,5 @@
 package com.onikai.backend.config
 
-import com.onikai.backend.extensions.Auth
 import com.onikai.backend.service.JWTService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -43,7 +42,7 @@ class JWTAuthenticationFilter(
       val userDetails = userDetailsService.loadUserByUsername(usernameOrEmail)
       // If the user and the token are valid
       if(jwtService.tokenIsValid(jwtToken, userDetails)) {
-        val authToken = Auth(
+        val authToken = UsernamePasswordAuthenticationToken(
           userDetails,
           null,
           userDetails.authorities

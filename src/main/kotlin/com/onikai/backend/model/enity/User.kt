@@ -62,16 +62,16 @@ open class User  {
   @Column var createdAt:Instant? = null
   @Column var updatedAt:Instant? = null
 
-  @Column(name = "elo_rating")
-  var eloRating: Int? = null
+  @Column(name = "rating")
+  var rating: Int = 1000
 
   @NotNull
   @Column(name = "games_won", nullable = false)
   var gamesWon: Int? = null
 
   @NotNull
-  @Column(name = "games_played", nullable = false)
-  var gamesPlayed: Int? = null
+  @Column(name = "games_lost", nullable = false)
+  var gamesLost: Int? = null
 
   @NotNull
   @Column(name = "is_guest", nullable = false)
